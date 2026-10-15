@@ -22,7 +22,7 @@ VillageSQL_BUILD_DIR=$HOME/build/villagesql bash build.sh
 
 # macOS
 cmake -S . -B build \
-  -DVillageSQL_BUILD_DIR=~/.villagesql/build \
+  -DVillageSQL_BUILD_DIR=$HOME/.villagesql/build \
   -DOPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl@3
 cmake --build build
 cmake --install build
