@@ -12,20 +12,12 @@
 | Variable | Purpose |
 |---|---|
 | `VillageSQL_BUILD_DIR` | Path to VillageSQL build tree (required for build) |
-| `OPENSSL_ROOT_DIR` | OpenSSL prefix (macOS with Homebrew usually needs this) |
+| `OPENSSL_ROOT_DIR` | OpenSSL prefix (optional; Homebrew's `openssl@3` is detected automatically on macOS) |
 
 ## Build and install
 
 ```bash
-# Linux
 VillageSQL_BUILD_DIR=$HOME/build/villagesql bash build.sh
-
-# macOS
-cmake -S . -B build \
-  -DVillageSQL_BUILD_DIR=$HOME/.villagesql/build \
-  -DOPENSSL_ROOT_DIR=/opt/homebrew/opt/openssl@3
-cmake --build build
-cmake --install build
 ```
 
 ## Run the full test suite
