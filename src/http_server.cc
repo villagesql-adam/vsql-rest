@@ -142,7 +142,9 @@ std::string format_http_response(const HttpResponse& resp) {
   // Required headers.
   out += "Connection: close\r\n";
 
-  out += "Content-Length: " + std::to_string(resp.body.size()) + "\r\n";
+  out += "Content-Length: ";
+  out += std::to_string(resp.body.size());
+  out += "\r\n";
 
   // Caller-provided headers.
   bool has_content_type = false;
