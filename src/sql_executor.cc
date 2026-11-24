@@ -1155,14 +1155,11 @@ static HttpResponse handle_discovery(
 
 // --- Main dispatcher ---
 
-// thread_worker does not catch exceptions at its callback boundary (unlike a
-// VDF entry point, which the VEF SDK wraps), and this is called once per
-// pending request from rest_worker's POLL_FD/PERIODIC arm, over attacker-
-// supplied HTTP request bodies. An exception escaping here would propagate
-// out of rest_worker and crash the whole server rather than fail just the one
-// request -- a function-try-block catches it without an extra indentation
-// level over this function's ~190-line body, matching how .dump() nearby
-// guards against a narrower version of the same risk.
+// Called once per pending request from rest_worker's POLL_FD/PERIODIC arm,
+// over attacker-supplied HTTP request bodies. Catching here fails just this
+// request with a 500; rest_worker's own guard would drop the whole batch. A
+// function-try-block avoids an extra indentation level over this ~190-line
+// body.
 HttpResponse execute_request(vsql::preview_sql_query::Session& session,
                              const HttpRequest& req,
                              const std::string& schema_name,
